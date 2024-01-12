@@ -3,12 +3,12 @@ import axios from 'axios';
 import { environment } from '../environments/environment';
 import { IResponseObject, framedResponse } from '../utils/response-framer';
 
-export class TweetsApi {
+export class SchoolApi {
   logger: Logger;
-  tweetsURL = environment.tweetsUrl;
+  schoolURL = environment.schoolUrl;
 
   constructor() {
-    this.logger = new Logger('TWEETS_API');
+    this.logger = new Logger('SCHOOL_API');
   }
 
   private log(message: string) {
@@ -19,14 +19,14 @@ export class TweetsApi {
     this.logger.error(`${message}`);
   }
 
-  async createTweetFunction<T>(data): Promise<IResponseObject<T>> {
+  async createSchoolFunction<T>(data): Promise<IResponseObject<T>> {
     try {
-      this.logger.log(`Tweets creation initiated for: ${JSON.stringify(data)}`);
+      this.logger.log(`School creation initiated for: ${JSON.stringify(data)}`);
 
       return await axios
-        .post(`${this.tweetsURL}/createTweet`, data)
+        .post(`${this.schoolURL}/createSchool`, data)
         .then((response) => {
-          if (!response) throw `Errored while tweet creation.`;
+          if (!response) throw `Errored while school creation.`;
           if (response.data.status === 'ERROR')
             throw `${response.data.message}`;
           return response.data;
@@ -37,15 +37,16 @@ export class TweetsApi {
     }
   }
 
-  async fetchTweetFunction<T>(data): Promise<IResponseObject<T>> {
+  async createTeacherFunction<T>(data): Promise<IResponseObject<T>> {
     try {
-      this.logger.log(`Fetch tweet initiated for: ${JSON.stringify(data)}`);
+      this.logger.log(
+        `Teacher creation initiated for: ${JSON.stringify(data)}`,
+      );
 
       return await axios
-        .get(`${this.tweetsURL}/fetchTweet/${data.tweetId}`)
+        .post(`${this.schoolURL}/createTeacher`, data)
         .then((response) => {
-          if (!response)
-            throw `Errored while fetching a tweet with id: ${data.tweetId}.`;
+          if (!response) throw `Errored while teacher creation.`;
           if (response.data.status === 'ERROR')
             throw `${response.data.message}`;
           return response.data;
@@ -56,14 +57,14 @@ export class TweetsApi {
     }
   }
 
-  async deleteTweetFunction<T>(data): Promise<IResponseObject<T>> {
+  async createClassFunction<T>(data): Promise<IResponseObject<T>> {
     try {
-      this.logger.log(`Delete tweets initiated for: ${JSON.stringify(data)}`);
+      this.logger.log(`Class creation initiated for: ${JSON.stringify(data)}`);
 
       return await axios
-        .post(`${this.tweetsURL}/deleteTweet`, data)
+        .post(`${this.schoolURL}/createClass`, data)
         .then((response) => {
-          if (!response) throw `Errored while deleting tweets.`;
+          if (!response) throw `Errored while class creation.`;
           if (response.data.status === 'ERROR')
             throw `${response.data.message}`;
           return response.data;
@@ -74,17 +75,16 @@ export class TweetsApi {
     }
   }
 
-  async fetchTweetsLessThanTenInLengthFunction<T>(): Promise<
-    IResponseObject<T>
-  > {
+  async createStudentsFunction<T>(data): Promise<IResponseObject<T>> {
     try {
-      this.logger.log(`Fetching tweets less than ten in length initiated.`);
+      this.logger.log(
+        `Students creation initiated for: ${JSON.stringify(data)}`,
+      );
 
       return await axios
-        .get(`${this.tweetsURL}/findTweetsLessThanTenInLength`)
+        .post(`${this.schoolURL}/createStudents`, data)
         .then((response) => {
-          if (!response)
-            throw `Errored while fetching tweets less than ten in length.`;
+          if (!response) throw `Errored while students creation.`;
           if (response.data.status === 'ERROR')
             throw `${response.data.message}`;
           return response.data;
@@ -95,14 +95,16 @@ export class TweetsApi {
     }
   }
 
-  async fetchAllTweetsFunction<T>(): Promise<IResponseObject<T>> {
+  async createParentsFunction<T>(data): Promise<IResponseObject<T>> {
     try {
-      this.logger.log(`Fetch all tweets function successfully initiated.`);
+      this.logger.log(
+        `Parents creation initiated for: ${JSON.stringify(data)}`,
+      );
 
       return await axios
-        .get(`${this.tweetsURL}/fetchAllTweets`)
+        .post(`${this.schoolURL}/createParents`, data)
         .then((response) => {
-          if (!response) throw `Errored while fetching all tweets.`;
+          if (!response) throw `Errored while parents creation.`;
           if (response.data.status === 'ERROR')
             throw `${response.data.message}`;
           return response.data;

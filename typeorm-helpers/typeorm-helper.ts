@@ -7,12 +7,52 @@ import {
 } from 'typeorm';
 
 @Injectable()
-export class TweetsRepository {
-  static getProvider<Entity extends ObjectLiteral>(
+export class SchoolRepository {
+  static getProviderForSchool<Entity extends ObjectLiteral>(
     entity: EntityTarget<Entity>,
   ) {
     return {
-      provide: 'TweetsEntityRepository',
+      provide: 'SchoolEntityRepository',
+      useFactory: (dataSource: DataSource) => dataSource.getRepository(entity),
+      inject: ['DATA_SOURCE'],
+    };
+  }
+
+  static getProviderForClass<Entity extends ObjectLiteral>(
+    entity: EntityTarget<Entity>,
+  ) {
+    return {
+      provide: 'ClassEntityRepository',
+      useFactory: (dataSource: DataSource) => dataSource.getRepository(entity),
+      inject: ['DATA_SOURCE'],
+    };
+  }
+
+  static getProviderForTeachers<Entity extends ObjectLiteral>(
+    entity: EntityTarget<Entity>,
+  ) {
+    return {
+      provide: 'TeachersEntityRepository',
+      useFactory: (dataSource: DataSource) => dataSource.getRepository(entity),
+      inject: ['DATA_SOURCE'],
+    };
+  }
+
+  static getProviderForParents<Entity extends ObjectLiteral>(
+    entity: EntityTarget<Entity>,
+  ) {
+    return {
+      provide: 'ParentsEntityRepository',
+      useFactory: (dataSource: DataSource) => dataSource.getRepository(entity),
+      inject: ['DATA_SOURCE'],
+    };
+  }
+
+  static getProviderForStudents<Entity extends ObjectLiteral>(
+    entity: EntityTarget<Entity>,
+  ) {
+    return {
+      provide: 'StudentsEntityRepository',
       useFactory: (dataSource: DataSource) => dataSource.getRepository(entity),
       inject: ['DATA_SOURCE'],
     };

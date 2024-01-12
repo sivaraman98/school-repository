@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './tweets.module';
+import { AppModule } from './school.module';
 const Dotenv = require('dotenv-webpack');
 
 new Dotenv();
